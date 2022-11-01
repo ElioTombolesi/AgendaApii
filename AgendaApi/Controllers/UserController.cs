@@ -41,9 +41,25 @@ namespace AgendaApi.Controllers
             
         }
 
-       // [HttpDelete]
-        // [Route("{Id}")]
+         [HttpDelete]
+         
+         public IActionResult DeleteUser(int id )
+        {
+
+            try 
+            {
+
+                _userRepository.Archive(id);
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            
+            }
+        }
 
 
     }
 }
+

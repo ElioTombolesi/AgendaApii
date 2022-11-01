@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AgendaApi.Model.Enum;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AgendaApi.Entities
@@ -16,5 +17,7 @@ namespace AgendaApi.Entities
         public string? LastName { get; set; }   // el signo es para que admita valores nulos 
         public string Password { get; set; }
         public ICollection<Contact>? Contacts{ get; set; }
+
+        public State state { get; set; } = State.Active;
 }
 }
