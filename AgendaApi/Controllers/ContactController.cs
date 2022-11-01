@@ -1,4 +1,5 @@
-﻿using AgendaApi.Entities;
+﻿using AgendaApi.DTOs;
+using AgendaApi.Entities;
 using AgendaApi.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,15 +24,35 @@ namespace AgendaApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetOne /{Id}")] // esto lo que hace es decir de donde obtine uno y eñ {} es para que puedas ingresasr el id que queres saber
+        [Route("GetOne/{Id}")] // esto lo que hace es decir de donde obtine uno y eñ {} es para que puedas ingresasr el id que queres saber
 
         public IActionResult GetOneById(int Id)
         {
-            List<Contact> usersToReturn = _ContactRepository.GetAllContact().Where(x => x.Id == Id).ToList();
-            if (usersToReturn.Count > 0)
-                return Ok(usersToReturn);
+            Contact contact = _ContactRepository.GetAllContact().Where(x => x.Id == Id).ToList().SingleOrDefault();
+            var contactDTO = new ContacDTO();
 
-            return NotFound("Contacto inexistente");
+            contactDTO.Id = contact.Id;
+            contactDTO.Name = contact.Name;
+            contactDTO.TelephoneNumber = contact.TelephoneNumber;
+            contactDTO.CelularNumber = contact.CelularNumber;
+            contactDTO.Description = contact.Description;
+            return Ok(contactDTO);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            
+            }
+        
         }
     }
 }
